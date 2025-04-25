@@ -1,5 +1,52 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/nNJCgjP-)
-# Homework 4: Mobile Mess
+This repository contains my completed solution to Homework 4 for NYU's Application Security course. The assignment involved auditing and refactoring an insecure Android gift card application developed by Shoddycorp's Cut-Rate Contracting. Tasks included proper Intent handling, secure communication, removing invasive permissions, and setting up GitHub CI for Android.
+
+---
+
+## ✅ Part 1: Environment Setup
+
+- Imported project into Android Studio and configured a Pixel 3a emulator using API level 30 (Android 11).
+- Successfully compiled and launched the application in the Android emulator.
+- All commits signed using GPG ✔️
+- Created a GitHub Actions workflow to verify that the project compiles using Gradle:
+  ```yaml
+  - name: Setup Android SDK
+    uses: android-actions/setup-android@v2
+## ✅ Part 2: Fixing Intents & Manifest Restrictions
+🔄 2.1: Secure Intent Handling
+- Replaced the insecure implicit intent in SecondFragment.kt with a proper explicit intent.
+- Verified that the explicit intent safely launches the activity within the app.
+
+🚫 2.2: Locking Down the Manifest
+- Modified AndroidManifest.xml to prevent external apps from launching the app via unprotected Intents.
+- Removed android:exported="true" from components where unnecessary.
+
+## ✅ Part 3: Enforcing HTTPS
+- Secured all REST API interactions by switching from http:// to https:// in the following files:
+- SecondFragment.kt
+- ThirdFragment.kt
+- CardScrollingActivity.kt
+- ProductScrollingActivity.kt
+- UseCard.kt
+- GetCard.kt
+- CardRecyclerViewAdapter.kt
+- RecyclerViewAdapter.kt
+- Reporter.kt
+- strings.xml
+✔️ Verified that API interactions still function correctly over HTTPS.
+
+## ✅ Part 4: Understanding the GiftCard Abuse Vulnerability
+Although no fix was required for this section, I investigated a critical issue where users can redeem GiftCards not assigned to them. I explored the server-side implications and determined that authorization logic must be enforced server-side, not within the client app.
+
+## ✅ Part 5: Privacy Improvements
+Removed all unnecessary permissions, metrics, and sensor usage across the app:
+🧹 Removed From:
+- AndroidManifest.xml: Removed all unused or invasive permissions.
+- UserInfo.kt: Stripped out any metric collection logic.
+- CardScrollingActivity.kt & ProductScrollingActivity.kt: Removed unnecessary sensor access and user tracking.
+✔️ The application now adheres to modern Android privacy best practices.
+
+
+# Assesment Quetion: Homework 4: Mobile Mess
 
 ## Get Latest Updates
 Use the following commands to pull the latest updates.
